@@ -110,3 +110,9 @@ const updatedUsers = {
 };
 Object.assign(updatedUsers, users);
 console.log(updatedUsers);
+
+// Get all keys or properties of users object
+console.log(Object.keys(users));
+
+// Get all the values of users object
+console.log(Object.values(users));
