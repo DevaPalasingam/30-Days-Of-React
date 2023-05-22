@@ -134,7 +134,6 @@ const products = [
 
 /* The products array has three elements and each of them has six properties. 
 a. Create a function called rateProduct which rates the product 
-b. Create a function called averageRating which calculate the average rating of a product
 */
 function rateProduct(rateObj, productName) {
   if (rateObj.hasOwnProperty("userId") && rateObj.hasOwnProperty("rate")) {
@@ -146,12 +145,39 @@ function rateProduct(rateObj, productName) {
     }
   } else return "Invalid rating input";
 }
+
+// b. Create a function called averageRating which calculate the average rating of a product
 const average = (array) => array.reduce((a, b) => a + b) / array.length;
 function averageRating(productName) {
   const i = products.findIndex((e) => e.name === productName);
   if (i > -1) {
     if (products[i].ratings && products[i].ratings.length > 0) {
-      console.log("Finding average");
+      const prodRateObj = products[i].ratings;
+      let ratingsArr = [];
+      for (let c = 0; c < prodRateObj.length; c++) {
+        ratingsArr.push(prodRateObj[c].rate);
+      }
+      return average(ratingsArr);
     } else return "No ratings found";
   } else return "Product not found";
+}
+
+/* 
+Create a function called likeProduct. 
+This function will helps to like to the product if it is not liked.
+And remove like if it was liked.
+*/
+function likeProduct(userId, productName) {
+  const i = products.findIndex((e) => e.name === productName);
+  if (i > -1) {
+    const prodLikesArr = products[i].likes;
+    const userIndex = prodLikesArr.indexOf(userId);
+    if (userIndex > -1) {
+      console.log(userId + " does not like " + productName);
+      prodLikesArr.splice(userIndex, 1);
+    } else {
+      console.log(userId + " likes " + productName);
+      prodLikesArr.push(userId);
+    }
+  }
 }
