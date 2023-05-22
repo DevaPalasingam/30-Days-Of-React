@@ -144,5 +144,14 @@ function rateProduct(rateObj, productName) {
     } else {
       return "Product not found";
     }
-  }
+  } else return "Invalid rating input";
+}
+const average = (array) => array.reduce((a, b) => a + b) / array.length;
+function averageRating(productName) {
+  const i = products.findIndex((e) => e.name === productName);
+  if (i > -1) {
+    if (products[i].ratings && products[i].ratings.length > 0) {
+      console.log("Finding average");
+    } else return "No ratings found";
+  } else return "Product not found";
 }
