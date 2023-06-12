@@ -61,11 +61,31 @@ The price of tea is unknown.
 // console.log(sumChain);
 
 // Calculate the sum of all the prices using reduce only
-const initialValue = 0;
-const sumReduce = products.reduce((accumulator, currentValue) => {
-  let price = currentValue.price;
-  if (parseInt(price) && !isNaN(price)) {
-    return accumulator + price;
-  } else return accumulator;
-}, initialValue);
-console.log(sumReduce);
+// const initialValue = 0;
+// const sumReduce = products.reduce((accumulator, currentValue) => {
+//   let price = currentValue.price;
+//   if (parseInt(price) && !isNaN(price)) {
+//     return accumulator + price;
+//   } else return accumulator;
+// }, initialValue);
+// console.log(sumReduce);
+
+// Find the first product which doesn't have a price value
+// const noPrice = products.filter(
+//   (product) => !parseInt(product.price) || isNaN(product.price)
+// );
+// console.log(noPrice[0].product);
+
+// Find the index of the first product which does not have price value
+// console.log(
+//   products.findIndex(
+//     (product) => !parseInt(product.price) || isNaN(product.price)
+//   )
+// );
+
+// Check if some products do not have a price value
+// if (
+//   products.every((product) => parseInt(product.price) && !isNaN(product.price))
+// ) {
+//   console.log("All products have prices");
+// } else console.log("Not all products have prices");
