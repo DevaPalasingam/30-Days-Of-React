@@ -20,7 +20,6 @@ console.log('Median: ',statistics.median()) // 29
 console.log('Mode: ', statistics.mode()) // {'mode': 26, 'count': 5}
 console.log('Variance: ',statistics.var()) // 17.5
 console.log('Standard Deviation: ', statistics.std()) // 4.2
-console.log('Variance: ',statistics.var()) // 17.5
 console.log('Frequency Distribution: ',statistics.freqDist()) // [(20.0, 26), (16.0, 27), (12.0, 32), (8.0, 37), (8.0, 34), (8.0, 33), (8.0, 31), (8.0, 24), (4.0, 38), (4.0, 29), (4.0, 25)]
 
 your output should look like this
@@ -65,6 +64,66 @@ class Statistics {
     let sum = this.sum();
     return sum / count;
   }
+  mode() {
+    let countObj = {};
+    let inputArr = this.inputArr;
+    inputArr.forEach((element) => {
+      if (!(element in countObj)) {
+        countObj[element] = 0;
+      }
+      countObj[element]++;
+    });
+
+    let best;
+    let bestCount = 0;
+
+    for (const number in countObj) {
+      if (countObj[number] > bestCount) {
+        bestCount = countObj[number];
+        best = number;
+      }
+    }
+
+    return `{Mode: ${best}, Count: ${bestCount}}`;
+  }
+  variance() {
+    /**
+     * Take each number in the set and find this: (num - mean)^2
+     * Add up all of these numbers together
+     * Then divide it by the number of data points in the set
+     */
+
+    let inputArr = this.inputArr;
+    let mean = this.mean();
+    let squareDiffs = 0;
+
+    inputArr.forEach((element) => {
+      let squareDiff = Math.pow(element - mean, 2);
+      squareDiffs += squareDiff;
+    });
+    return squareDiffs / inputArr.length;
+  }
+  std() {
+    return Math.sqrt(this.variance());
+  }
+  freqDist() {
+    let countObj = {};
+    let inputArr = this.inputArr;
+    let numOf = inputArr.length;
+    inputArr.forEach((element) => {
+      if (!(element in countObj)) {
+        countObj[element] = 0;
+      }
+      countObj[element]++;
+    });
+
+    let freqDistArr = [];
+    for (const number in countObj) {
+      let percentile = (countObj[number] * 100) / numOf;
+      freqDistArr.push(`${number}: ${percentile}%`);
+    }
+    return freqDistArr;
+  }
 }
 
 const statistics = new Statistics(ages);
@@ -74,3 +133,7 @@ console.log("Min: ", statistics.min()); // 24
 console.log("Max: ", statistics.max()); // 38
 console.log("Range: ", statistics.range()); // 14
 console.log("Mean: ", statistics.mean()); // 30
+console.log("Mode: ", statistics.mode()); // {'mode': 26, 'count': 5}
+console.log("Variance: ", statistics.variance()); // 17.5
+console.log("Standard Deviation: ", statistics.std()); // 4.2
+console.log("Frequency Distribution: ", statistics.freqDist()); // [(20.0, 26), (16.0, 27), (12.0, 32), (8.0, 37), (8.0, 34), (8.0, 33), (8.0, 31), (8.0, 24), (4.0, 38), (4.0, 29), (4.0, 25)]
